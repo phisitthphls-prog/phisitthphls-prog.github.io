@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MechCalc Studio - สำหรับยื่น Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Kanit', 'Prompt', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .print-card { border: 1px solid #ccc !important; background: #fff !important; color: #000 !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col font-sans antialiased bg-slate-950 text-slate-100">
+
+  <header class="no-print sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Subtitle -->
+        <div class="flex items-center space-x-3">
+          <div class="p-2 bg-brand-600 rounded-xl shadow-lg shadow-brand-500/20 text-white">
+            <i class="fa-solid fa-gears text-2xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl font-bold tracking-tight text-white">MechCalc Studio</h1>
+              <span class="px-2 py-0.5 text-xs font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full" id="tag-portfolio">Portfolio Project</span>
+            </div>
+            <p class="text-xs text-slate-400 font-light" id="sub-title">สำหรับยื่น Portfolio</p>
+          </div>
+        </div>
+
+        <!-- Right Controls (Lang & Print) -->
+        <div class="flex items-center space-x-3">
+          <button id="btn-lang-toggle" onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-globe text-brand-500"></i>
+            <span id="lang-label">EN</span>
+          </button>
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-md transition flex items-center gap-1.5">
+            <i class="fa-solid fa-print"></i>
+            <span id="txt-print">พิมพ์รายงาน</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-2 border-t border-slate-800/80 pt-2 pb-2 overflow-x-auto">
+        <button onclick="switchTab('calc')" id="nav-calc" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 bg-brand-600 text-white">
+          <i class="fa-solid fa-calculator"></i>
+          <span id="tab-txt-calc">เครื่องมือคำนวณ</span>
+        </button>
+        <button onclick="switchTab('creator')" id="nav-creator" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:bg-slate-800 hover:text-white">
+          <i class="fa-solid fa-user-gear"></i>
+          <span id="tab-txt-creator">ผู้จัดทำ</span>
+        </button>
+        <button onclick="switchTab('glossary')" id="nav-glossary" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:bg-slate-800 hover:text-white">
+          <i class="fa-solid fa-book-open"></i>
+          <span id="tab-txt-glossary">คู่มือสูตร & ศัพท์วิศวกรรม</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: CALCULATORS & DASHBOARD            -->
+    <!-- ========================================== -->
+    <div id="section-calc" class="tab-content space-y-6">
+      
+      <!-- Module Selector Grid -->
+      <div class="no-print grid grid-cols-2 md:grid-cols-4 gap-3">
+        <button onclick="selectModule('shaft')" id="mod-btn-shaft" class="mod-card p-3 rounded-xl border bg-slate-900 border-brand-500 text-left transition hover:border-brand-500 shadow-sm">
+          <div class="flex items-center space-x-3">
+            <div class="p-2 rounded-lg bg-brand-500/10 text-brand-400"><i class="fa-solid fa-circle-notch text-lg"></i></div>
+            <div>
+              <div class="text-xs font-semibold text-white" id="mod-title-shaft">1. เพลาและแรงบิด</div>
+              <div class="text-[10px] text-slate-400">Shaft & Torque</div>
+            </div>
+          </div>
+        </button>
+
+        <button onclick="selectModule('gear')" id="mod-btn-gear" class="mod-card p-3 rounded-xl border bg-slate-900 border-slate-800 text-left transition hover:border-brand-500 shadow-sm">
+          <div class="flex items-center space-x-3">
+            <div class="p-2 rounded-lg bg-slate-800 text-slate-400"><i class="fa-solid fa-gear text-lg"></i></div>
+            <div>
+              <div class="text-xs font-semibold text-white" id="mod-title-gear">2. อัตราทดเกียร์</div>
+              <div class="text-[10px] text-slate-400">Gear Ratio & Speed</div>
+            </div>
+          </div>
+        </button>
+
+        <button onclick="selectModule('beam')" id="mod-btn-beam" class="mod-card p-3 rounded-xl border bg-slate-900 border-slate-800 text-left transition hover:border-brand-500 shadow-sm">
+          <div class="flex items-center space-x-3">
+            <div class="p-2 rounded-lg bg-slate-800 text-slate-400"><i class="fa-solid fa-ruler-horizontal text-lg"></i></div>
+            <div>
+              <div class="text-xs font-semibold text-white" id="mod-title-beam">3. ความเค้นดัดในคาน</div>
+              <div class="text-[10px] text-slate-400">Beam Bending Stress</div>
+            </div>
+          </div>
+        </button>
+
+        <button onclick="selectModule('cylinder')" id="mod-btn-cylinder" class="mod-card p-3 rounded-xl border bg-slate-900 border-slate-800 text-left transition hover:border-brand-500 shadow-sm">
+          <div class="flex items-center space-x-3">
+            <div class="p-2 rounded-lg bg-slate-800 text-slate-400"><i class="fa-solid fa-compress text-lg"></i></div>
+            <div>
+              <div class="text-xs font-semibold text-white" id="mod-title-cylinder">4. แรงดันลูกสูบ</div>
+              <div class="text-[10px] text-slate-400">Fluid Power Cylinder</div>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Active Calculation Panel -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Inputs & Control Form -->
+        <div class="lg:col-span-5 bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-5 shadow-xl">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 class="text-base font-bold text-white flex items-center gap-2" id="panel-input-title">
+              <i class="fa-solid fa-sliders text-brand-500"></i> พารามิเตอร์ขาเข้า
+            </h2>
+            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded-full text-slate-400 font-mono" id="active-mod-name">Shaft Design</span>
+          </div>
+
+          <!-- Dynamic Input Controls -->
+          <div id="dynamic-inputs" class="space-y-4">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Output & Interactive SVG Visualization -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Results Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="dynamic-outputs">
+            <!-- Injected via JavaScript -->
+          </div>
+
+          <!-- Interactive Graphic Visualizer Card -->
+          <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2" id="txt-visual-title">
+                <i class="fa-solid fa-eye text-brand-500"></i> แผนภาพจำลองโครงสร้าง (Interactive Visualizer)
+              </h3>
+              <span class="text-[10px] text-slate-500 font-mono">Real-time SVG</span>
+            </div>
+            
+            <div class="bg-slate-950 rounded-xl border border-slate-800 p-4 flex items-center justify-center min-h-[220px]" id="svg-container">
+              <!-- SVG graphic updated via JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: CREATOR / DEVELOPER PROFILE        -->
+    <!-- ========================================== -->
+    <div id="section-creator" class="tab-content hidden space-y-6">
+      
+      <!-- Profile Header Card -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-brand-950 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+          <i class="fa-solid fa-gears text-[220px] text-brand-400"></i>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-6 relative z-10">
+          <!-- Profile Photo -->
+          <div class="w-32 h-32 md:w-36 md:h-36 rounded-2xl bg-gradient-to-tr from-brand-500 to-sky-400 p-1 shadow-xl flex-shrink-0">
+            <div class="w-full h-full bg-slate-900 rounded-[14px] overflow-hidden flex items-center justify-center">
+              <img id="profile.jpg" src="https://cdn.phototourl.com/free/2026-09-18-1417ebda-b0ad-4b6e-8fdd-e771a5a32c2d.jpg" alt="นายพิสิฏฐ์พล สิงห์เรือง" class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/200x200/0f172a/38bdf8?text=Pisittapol'">
+            </div>
+          </div>
+
+          <!-- Basic Info -->
+          <div class="text-center md:text-left space-y-2 flex-1">
+            <div class="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-semibold tracking-wider uppercase" id="cr-tag">
+              ผู้สมัครเข้าศึกษาต่อ (Engineering Applicant)
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight" id="cr-name">
+              นายพิสิฏฐ์พล สิงห์เรือง
+            </h2>
+            <p class="text-sm text-slate-400 font-medium" id="cr-en-name">
+              Pisittapol Singhareung
+            </p>
+            <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-2 text-xs">
+              <span class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700" id="cr-target">
+                <i class="fa-solid fa-graduation-cap text-amber-400 mr-1.5"></i>สาขาวิชาวิศวกรรมเครื่องกล (Mechanical Engineering)
+              </span>
+              <span class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700" id="cr-status">
+                <i class="fa-solid fa-folder-open text-brand-400 mr-1.5"></i>ผลงานสำหรับจัดทำ Portfolio / TCAS
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights & Skills Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Objective & Motivation -->
+        <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3" id="cr-sec1-title">
+            <i class="fa-solid fa-bullseye text-brand-500"></i> เป้าหมายและความมุ่งมั่น (Statement of Purpose)
+          </h3>
+          <p class="text-sm text-slate-300 leading-relaxed font-light" id="cr-sec1-desc">
+            มีความสนใจอย่างยิ่งในด้านวิศวกรรมเครื่องกล การออกแบบระบบทางกล และการคำนวณทางวิศวกรรม จึงได้พัฒนาเว็บแอปพลิเคชัน <strong>MechCalc Studio</strong> นี้ขึ้นเพื่อแสดงถึงทักษะการประยุกต์ใช้ความรู้คณิตศาสตร์ วิทยาศาสตร์ ฟิสิกส์ ร่วมกับเทคโนโลยีการเขียนโปรแกรม เพื่อสร้างเครื่องมือช่วยคำนวณที่ถูกต้อง รวดเร็ว และใช้งานได้จริง
+          </p>
+        </div>
+
+        <!-- Technical Skills List -->
+        <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3" id="cr-sec2-title">
+            <i class="fa-solid fa-laptop-code text-brand-500"></i> ทักษะความสามารถ (Core Competencies)
+          </h3>
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-brand-400 mt-0.5"></i>
+              <span id="cr-skill-1"><strong>Mechanical Engineering Basics:</strong> คำนวณความเค้น, แรงบิด, อัตราทดเกียร์ และกลศาสตร์ของไหลในระบบไฮดรอลิก</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-brand-400 mt-0.5"></i>
+              <span id="cr-skill-2"><strong>Web Development & Programming:</strong> HTML, CSS (Tailwind), JavaScript, Logic & Algorithmic Design</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-brand-400 mt-0.5"></i>
+              <span id="cr-skill-3"><strong>Engineering Graphics & CAD Concepts:</strong> เข้าใจพื้นฐานแบบเขียนแบบวิศวกรรม และการจำลอง SVG Interactive</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-brand-400 mt-0.5"></i>
+              <span id="cr-skill-4"><strong>Problem Solving & Analytical Thinking:</strong> การวิเคราะห์โจทย์ทางกลและแปลงสูตรคำนวณให้เป็นโปรแกรม</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Project Overview Card -->
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3" id="cr-sec3-title">
+          <i class="fa-solid fa-cubes text-brand-500"></i> ข้อมูลโปรเจกต์ (About MechCalc Studio)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-slate-400" id="cr-prj-lbl1">วัตถุประสงค์</div>
+            <div class="font-medium text-slate-200" id="cr-prj-val1">สร้างเครื่องมือคำนวณวิศวกรรมเครื่องกลที่ตอบสนองแบบ Real-time</div>
+          </div>
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-slate-400" id="cr-prj-lbl2">เทคโนโลยีที่ใช้</div>
+            <div class="font-medium text-slate-200" id="cr-prj-val2">HTML5, Tailwind CSS, Pure JavaScript, SVG Visualizer</div>
+          </div>
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <div class="text-slate-400" id="cr-prj-lbl3">กลุ่มเป้าหมาย</div>
+            <div class="font-medium text-slate-200" id="cr-prj-val3">กรรมการประเมิน Portfolio, อาจารย์ผู้ตรวจรับเข้าศึกษา</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: GLOSSARY & FORMULA REFERENCE        -->
+    <!-- ========================================== -->
+    <div id="section-glossary" class="tab-content hidden space-y-6">
+      
+      <!-- Search & Filter Controls -->
+      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div class="relative w-full md:w-96">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+          <input type="text" id="glossary-search" oninput="filterGlossary()" placeholder="ค้นหาตัวแปร สูตร หรือนิยามศัพท์..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-brand-500">
+        </div>
+        <div class="text-xs text-slate-400" id="txt-glossary-count">
+          รายการคำศัพท์ทางวิศวกรรมทั้งหมด
+        </div>
+      </div>
+
+      <!-- Terms List Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="glossary-grid">
+        <!-- Injected dynamically via JavaScript -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="no-print mt-auto border-t border-slate-800 bg-slate-900 py-4">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+      <p id="ft-text">MechCalc Studio &bull; จัดทำโดย นายพิสิฏฐ์พล สิงห์เรือง &bull; สำหรับยื่น Portfolio วิศวกรรมเครื่องกล</p>
+    </div>
+  </footer>
+
+  <script>
+    // Global Application State
+    let currentLang = 'TH'; // 'TH' or 'EN'
+    let activeModule = 'shaft';
+
+    // Module Input State Storage
+    const state = {
+      shaft: { power: 10, speed: 1450, tau: 40 },
+      gear: { n1: 1450, z1: 20, z2: 60, t1: 50 },
+      beam: { force: 2000, length: 1500, b: 50, h: 100 },
+      cylinder: { p: 6, d1: 63, d2: 20 }
+    };
+
+    // Bilingual UI Dictionary
+    const langDict = {
+      TH: {
+        subtitle: "สำหรับยื่น Portfolio",
+        print: "พิมพ์รายงาน",
+        tabCalc: "เครื่องมือคำนวณ",
+        tabCreator: "ผู้จัดทำ",
+        tabGlossary: "คู่มือสูตร & ศัพท์วิศวกรรม",
+        modShaft: "1. เพลาและแรงบิด",
+        modGear: "2. อัตราทดเกียร์",
+        modBeam: "3. ความเค้นดัดในคาน",
+        modCylinder: "4. แรงดันลูกสูบ",
+        visualTitle: "แผนภาพจำลองโครงสร้าง (Interactive Visualizer)",
+        panelInputTitle: "พารามิเตอร์ขาเข้า",
+        
+        // Creator Section TH
+        crTag: "ผู้สมัครเข้าศึกษาต่อ (Engineering Applicant)",
+        crName: "นายพิสิฏฐ์พล สิงห์เรือง",
+        crEnName: "Pisittapol Singhareung",
+        crTarget: "<i class=\"fa-solid fa-graduation-cap text-amber-400 mr-1.5\"></i>สาขาวิชาวิศวกรรมเครื่องกล (Mechanical Engineering)",
+        crStatus: "<i class=\"fa-solid fa-folder-open text-brand-400 mr-1.5\"></i>ผลงานสำหรับจัดทำ Portfolio / TCAS",
+        crSec1Title: "<i class=\"fa-solid fa-bullseye text-brand-500\"></i> เป้าหมายและความมุ่งมั่น (Statement of Purpose)",
+        crSec1Desc: "มีความสนใจอย่างยิ่งในด้านวิศวกรรมเครื่องกล การออกแบบระบบทางกล และการคำนวณทางวิศวกรรม จึงได้พัฒนาเว็บแอปพลิเคชัน <strong>MechCalc Studio</strong> นี้ขึ้นเพื่อแสดงถึงทักษะการประยุกต์ใช้ความรู้คณิตศาสตร์ วิทยาศาสตร์ ฟิสิกส์ ร่วมกับเทคโนโลยีการเขียนโปรแกรม เพื่อสร้างเครื่องมือช่วยคำนวณที่ถูกต้อง รวดเร็ว และใช้งานได้จริง",
+        crSec2Title: "<i class=\"fa-solid fa-laptop-code text-brand-500\"></i> ทักษะความสามารถ (Core Competencies)",
+        crSkill1: "<strong>Mechanical Engineering Basics:</strong> คำนวณความเค้น, แรงบิด, อัตราทดเกียร์ และกลศาสตร์ของไหลในระบบไฮดรอลิก",
+        crSkill2: "<strong>Web Development & Programming:</strong> HTML, CSS (Tailwind), JavaScript, Logic & Algorithmic Design",
+        crSkill3: "<strong>Engineering Graphics & CAD Concepts:</strong> เข้าใจพื้นฐานแบบเขียนแบบวิศวกรรม และการจำลอง SVG Interactive",
+        crSkill4: "<strong>Problem Solving & Analytical Thinking:</strong> การวิเคราะห์โจทย์ทางกลและแปลงสูตรคำนวณให้เป็นโปรแกรม",
+        crSec3Title: "<i class=\"fa-solid fa-cubes text-brand-500\"></i> ข้อมูลโปรเจกต์ (About MechCalc Studio)",
+        crPrjLbl1: "วัตถุประสงค์",
+        crPrjVal1: "สร้างเครื่องมือคำนวณวิศวกรรมเครื่องกลที่ตอบสนองแบบ Real-time",
+        crPrjLbl2: "เทคโนโลยีที่ใช้",
+        crPrjVal2: "HTML5, Tailwind CSS, Pure JavaScript, SVG Visualizer",
+        crPrjLbl3: "กลุ่มเป้าหมาย",
+        crPrjVal3: "กรรมการประเมิน Portfolio, อาจารย์ผู้ตรวจรับเข้าศึกษา",
+
+        footerText: "MechCalc Studio • จัดทำโดย นายพิสิฏฐ์พล สิงห์เรือง • สำหรับยื่น Portfolio วิศวกรรมเครื่องกล"
+      },
+      EN: {
+        subtitle: "For Portfolio Application",
+        print: "Print Report",
+        tabCalc: "Calculators",
+        tabCreator: "Developer",
+        tabGlossary: "Engineering Glossary",
+        modShaft: "1. Shaft & Torque",
+        modGear: "2. Gear Ratio & Speed",
+        modBeam: "3. Beam Bending Stress",
+        modCylinder: "4. Fluid Power Cylinder",
+        visualTitle: "Interactive Dynamic Visualization",
+        panelInputTitle: "Input Parameters",
+        
+        // Creator Section EN
+        crTag: "Mechanical Engineering Applicant",
+        crName: "Pisittapol Singhareung",
+        crEnName: "นายพิสิฏฐ์พล สิงห์เรือง",
+        crTarget: "<i class=\"fa-solid fa-graduation-cap text-amber-400 mr-1.5\"></i>Bachelor of Engineering (Mechanical Engineering)",
+        crStatus: "<i class=\"fa-solid fa-folder-open text-brand-400 mr-1.5\"></i>Portfolio Project Demo for TCAS",
+        crSec1Title: "<i class=\"fa-solid fa-bullseye text-brand-500\"></i> Statement of Purpose",
+        crSec1Desc: "Passionate about mechanical design and computational engineering. Built <strong>MechCalc Studio</strong> to demonstrate the practical application of physics, mathematics, and programming logic into an intuitive web tool.",
+        crSec2Title: "<i class=\"fa-solid fa-laptop-code text-brand-500\"></i> Core Competencies",
+        crSkill1: "<strong>Mechanical Fundamentals:</strong> Torsional Stress, Gear Ratios, Beam Bending, Hydraulic Power",
+        crSkill2: "<strong>Software & Web Logic:</strong> HTML, CSS (Tailwind), JavaScript algorithms",
+        crSkill3: "<strong>CAD & Visualization:</strong> Technical drawing concepts and dynamic SVG rendering",
+        crSkill4: "<strong>Analytical Thinking:</strong> Engineering problem solving and formula implementation",
+        crSec3Title: "<i class=\"fa-solid fa-cubes text-brand-500\"></i> Project Specifications",
+        crPrjLbl1: "Objective",
+        crPrjVal1: "Interactive real-time engineering calculation suite",
+        crPrjLbl2: "Tech Stack",
+        crPrjVal2: "HTML5, Tailwind CSS, Pure JS, SVG Visuals",
+        crPrjLbl3: "Target Audience",
+        crPrjVal3: "Admissions Committee, Engineering Faculty Evaluators",
+
+        footerText: "MechCalc Studio • Created by Pisittapol Singhareung • Developed for Engineering Portfolio"
+      }
+    };
+
+    // Engineering Glossary Data
+    const glossaryData = [
+      { term: "Torque (T)", defTH: "แรงบิด หมุนรอบแกนเพลา มีหน่วยเป็น นิวตัน-เมตร (N·m)", defEN: "Rotational twisting force acting on a shaft, measured in N·m", formula: "T = (P × 9550) / N" },
+      { term: "Allowable Shear Stress (τ)", defTH: "ความเค้นเฉือนที่ยอมให้ได้ของวัสดุทำเพลา (MPa)", defEN: "Maximum allowable shear stress for shaft material (MPa)", formula: "d = ∛(16T / πτ)" },
+      { term: "Gear Ratio (i)", defTH: "อัตราทดเกียร์ เปรียบเทียบจำนวนฟันหรือความเร็วรอบ", defEN: "Ratio of output gear teeth or speed relative to input", formula: "i = Z2 / Z1 = N1 / N2" },
+      { term: "Bending Moment (M)", defTH: "โมเมนต์ดัดสูงสุดที่เกิดขึ้นในคานเมื่อรับแรง (N·mm)", defEN: "Maximum bending moment exerted on a beam (N·mm)", formula: "M = (F × L) / 4" },
+      { term: "Section Modulus (Z)", defTH: "ค่ามอดูลัสหน้าตัด บ่งบอกความสามารถรับแรงดัดของรูปทรง", defEN: "Geometric property representing resistance to bending", formula: "Z = (b × h²) / 6" },
+      { term: "Bending Stress (σ)", defTH: "ความเค้นดัดที่เกิดขึ้นบนผิวคานนอกสุด (MPa)", defEN: "Stress experienced by beam fibers under bending (MPa)", formula: "σ = M / Z" },
+      { term: "Hydraulic Force (Push)", defTH: "แรงดันออกของกระบอกสูบไฮดรอลิก/นิวแมติก", defEN: "Pushing force generated by fluid pressure on piston area", formula: "F = P × A1" }
+    ];
+
+    // Initial setup on DOM ready
+    window.onload = function() {
+      selectModule('shaft');
+      renderGlossary();
+    };
+
+    // Tab Switching Logic
+    function switchTab(tabKey) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('bg-brand-600', 'text-white');
+        el.classList.add('text-slate-400');
+      });
+
+      document.getElementById('section-' + tabKey).classList.remove('hidden');
+      const activeBtn = document.getElementById('nav-' + tabKey);
+      activeBtn.classList.add('bg-brand-600', 'text-white');
+      activeBtn.classList.remove('text-slate-400');
+    }
+
+    // Toggle Language (TH / EN)
+    function toggleLanguage() {
+      currentLang = currentLang === 'TH' ? 'EN' : 'TH';
+      document.getElementById('lang-label').textContent = currentLang === 'TH' ? 'EN' : 'TH';
+      
+      const t = langDict[currentLang];
+      document.getElementById('sub-title').textContent = t.subtitle;
+      document.getElementById('txt-print').textContent = t.print;
+      document.getElementById('tab-txt-calc').textContent = t.tabCalc;
+      document.getElementById('tab-txt-creator').textContent = t.tabCreator;
+      document.getElementById('tab-txt-glossary').textContent = t.tabGlossary;
+      document.getElementById('mod-title-shaft').textContent = t.modShaft;
+      document.getElementById('mod-title-gear').textContent = t.modGear;
+      document.getElementById('mod-title-beam').textContent = t.modBeam;
+      document.getElementById('mod-title-cylinder').textContent = t.modCylinder;
+      document.getElementById('txt-visual-title').innerHTML = `<i class="fa-solid fa-eye text-brand-500"></i> ${t.visualTitle}`;
+      document.getElementById('panel-input-title').innerHTML = `<i class="fa-solid fa-sliders text-brand-500"></i> ${t.panelInputTitle}`;
+      document.getElementById('ft-text').textContent = t.footerText;
+
+      // Update Creator Strings
+      document.getElementById('cr-tag').innerHTML = t.crTag;
+      document.getElementById('cr-name').innerHTML = t.crName;
+      document.getElementById('cr-en-name').innerHTML = t.crEnName;
+      document.getElementById('cr-target').innerHTML = t.crTarget;
+      document.getElementById('cr-status').innerHTML = t.crStatus;
+      document.getElementById('cr-sec1-title').innerHTML = t.crSec1Title;
+      document.getElementById('cr-sec1-desc').innerHTML = t.crSec1Desc;
+      document.getElementById('cr-sec2-title').innerHTML = t.crSec2Title;
+      document.getElementById('cr-skill-1').innerHTML = t.crSkill1;
+      document.getElementById('cr-skill-2').innerHTML = t.crSkill2;
+      document.getElementById('cr-skill-3').innerHTML = t.crSkill3;
+      document.getElementById('cr-skill-4').innerHTML = t.crSkill4;
+      document.getElementById('cr-sec3-title').innerHTML = t.crSec3Title;
+      document.getElementById('cr-prj-lbl1').innerHTML = t.crPrjLbl1;
+      document.getElementById('cr-prj-val1').innerHTML = t.crPrjVal1;
+      document.getElementById('cr-prj-lbl2').innerHTML = t.crPrjLbl2;
+      document.getElementById('cr-prj-val2').innerHTML = t.crPrjVal2;
+      document.getElementById('cr-prj-lbl3').innerHTML = t.crPrjLbl3;
+      document.getElementById('cr-prj-val3').innerHTML = t.crPrjVal3;
+
+      // Re-render calculation module & glossary
+      selectModule(activeModule);
+      renderGlossary();
+    }
+
+    // Select Calculation Module
+    function selectModule(modKey) {
+      activeModule = modKey;
+      
+      // Update Module Card UI
+      ['shaft', 'gear', 'beam', 'cylinder'].forEach(key => {
+        const btn = document.getElementById(`mod-btn-${key}`);
+        if(key === modKey) {
+          btn.classList.add('border-brand-500', 'bg-slate-900');
+          btn.classList.remove('border-slate-800');
+        } else {
+          btn.classList.remove('border-brand-500');
+          btn.classList.add('border-slate-800');
+        }
+      });
+
+      document.getElementById('active-mod-name').textContent = modKey.toUpperCase();
+      renderInputs();
+      calculateAndRender();
+    }
+
+    // Dynamic Form Input Renderer
+    function renderInputs() {
+      const container = document.getElementById('dynamic-inputs');
+      let html = '';
+
+      if (activeModule === 'shaft') {
+        html = `
+          ${createInputHtml('power', currentLang==='TH'?'กำลังส่ง (Power, P)':'Transmitted Power (P)', state.shaft.power, 'kW', 0.1, 500)}
+          ${createInputHtml('speed', currentLang==='TH'?'ความเร็วรอบ (Speed, N)':'Shaft Speed (N)', state.shaft.speed, 'RPM', 10, 10000)}
+          ${createInputHtml('tau', currentLang==='TH'?'ความเค้นเฉือนที่ยอมให้ (Allowable Shear, τ)':'Allowable Shear Stress (τ)', state.shaft.tau, 'MPa', 5, 200)}
+        `;
+      } else if (activeModule === 'gear') {
+        html = `
+          ${createInputHtml('n1', currentLang==='TH'?'ความเร็วรอบขับ (Driver Speed, N1)':'Driver Speed (N1)', state.gear.n1, 'RPM', 10, 10000)}
+          ${createInputHtml('z1', currentLang==='TH'?'จำนวนฟันเกียร์ขับ (Pinion Teeth, Z1)':'Pinion Teeth (Z1)', state.gear.z1, 'ฟัน/Teeth', 10, 200)}
+          ${createInputHtml('z2', currentLang==='TH'?'จำนวนฟันเกียร์ตาม (Gear Teeth, Z2)':'Driven Gear Teeth (Z2)', state.gear.z2, 'ฟัน/Teeth', 10, 200)}
+          ${createInputHtml('t1', currentLang==='TH'?'แรงบิดขาเข้า (Input Torque, T1)':'Input Torque (T1)', state.gear.t1, 'N·m', 1, 1000)}
+        `;
+      } else if (activeModule === 'beam') {
+        html = `
+          ${createInputHtml('force', currentLang==='TH'?'แรงกดตรงกลาง (Force, F)':'Center Load (F)', state.beam.force, 'N', 100, 100000)}
+          ${createInputHtml('length', currentLang==='TH'?'ความยาวคาน (Length, L)':'Beam Length (L)', state.beam.length, 'mm', 100, 10000)}
+          ${createInputHtml('b', currentLang==='TH'?'ความกว้างหน้าตัด (Width, b)':'Cross Width (b)', state.beam.b, 'mm', 10, 500)}
+          ${createInputHtml('h', currentLang==='TH'?'ความสูงหน้าตัด (Height, h)':'Cross Height (h)', state.beam.h, 'mm', 10, 500)}
+        `;
+      } else if (activeModule === 'cylinder') {
+        html = `
+          ${createInputHtml('p', currentLang==='TH'?'แรงดันใช้งาน (Pressure, P)':'Working Pressure (P)', state.cylinder.p, 'bar', 1, 350)}
+          ${createInputHtml('d1', currentLang==='TH'?'ขนาดลูกสูบ (Piston Dia., D)':'Piston Diameter (D)', state.cylinder.d1, 'mm', 10, 300)}
+          ${createInputHtml('d2', currentLang==='TH'?'ขนาดก้านสูบ (Rod Dia., d)':'Rod Diameter (d)', state.cylinder.d2, 'mm', 5, 200)}
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function createInputHtml(id, label, val, unit, min, max) {
+      return `
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-xs">
+            <label class="text-slate-300 font-medium">${label}</label>
+            <span class="text-brand-400 font-mono font-bold"><span id="val-${id}">${val}</span> ${unit}</span>
+          </div>
+          <input type="range" min="${min}" max="${max}" value="${val}" step="any"
+            oninput="updateValue('${id}', this.value)"
+            class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+        </div>
+      `;
+    }
+
+    function updateValue(id, value) {
+      const numVal = parseFloat(value);
+      state[activeModule][id] = numVal;
+      const displayElem = document.getElementById(`val-${id}`);
+      if(displayElem) displayElem.textContent = numVal.toFixed(1);
+      calculateAndRender();
+    }
+
+    // Calculation Logic & SVG Visualizer Update
+    function calculateAndRender() {
+      const outContainer = document.getElementById('dynamic-outputs');
+      const svgContainer = document.getElementById('svg-container');
+
+      if (activeModule === 'shaft') {
+        const { power, speed, tau } = state.shaft;
+        // T = (P * 9550) / N (in N.m)
+        const torque = (power * 9550) / speed;
+        // d = ((16 * T * 1000) / (pi * tau))^(1/3) mm
+        const dia = Math.cbrt((16 * torque * 1000) / (Math.PI * tau));
+
+        outContainer.innerHTML = `
+          ${createCardHtml(currentLang==='TH'?'แรงบิดที่เกิดขึ้น (Torque)':'Torque Output', torque.toFixed(2), 'N·m', 'fa-rotate')}
+          ${createCardHtml(currentLang==='TH'?'ขนาดเพลาขั้นต่ำ (Min Dia.)':'Min Shaft Diameter', dia.toFixed(2), 'mm', 'fa-ruler-combined')}
+        `;
+
+        svgContainer.innerHTML = `
+          <svg width="280" height="180" viewBox="0 0 280 180" class="text-slate-300">
+            <!-- Shaft Body -->
+            <rect x="50" y="${90 - dia/3}" width="180" height="${dia*0.66}" fill="url(#shaftGrad)" stroke="#38bdf8" stroke-width="2" rx="4"/>
+            <!-- Rotation Arrow -->
+            <path d="M 140 30 A 35 35 0 0 1 170 60" fill="none" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow)"/>
+            <text x="140" y="25" text-anchor="middle" fill="#f59e0b" class="text-[10px]">T = ${torque.toFixed(1)} N·m</text>
+            <text x="140" y="160" text-anchor="middle" fill="#38bdf8" class="text-[10px]">d ≥ ${dia.toFixed(1)} mm</text>
+            <defs>
+              <linearGradient id="shaftGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1e293b"/>
+                <stop offset="50%" stop-color="#475569"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        `;
+
+      } else if (activeModule === 'gear') {
+        const { n1, z1, z2, t1 } = state.gear;
+        const ratio = z2 / z1;
+        const n2 = n1 / ratio;
+        const t2 = t1 * ratio;
+
+        outContainer.innerHTML = `
+          ${createCardHtml(currentLang==='TH'?'อัตราทดเกียร์ (Gear Ratio)':'Gear Ratio (i)', ratio.toFixed(2) + ' : 1', '', 'fa-gear')}
+          ${createCardHtml(currentLang==='TH'?'ความเร็วรอบออก (Output Speed)':'Output Speed (N2)', n2.toFixed(1), 'RPM', 'fa-gauge-high')}
+          ${createCardHtml(currentLang==='TH'?'แรงบิดขาออก (Output Torque)':'Output Torque (T2)', t2.toFixed(1), 'N·m', 'fa-bolt')}
+        `;
+
+        svgContainer.innerHTML = `
+          <svg width="280" height="180" viewBox="0 0 280 180">
+            <!-- Pinion Z1 -->
+            <circle cx="90" cy="90" r="${Math.min(z1*1.2, 45)}" fill="#0284c7" fill-opacity="0.3" stroke="#0284c7" stroke-width="2"/>
+            <text x="90" y="95" text-anchor="middle" fill="#fff" class="text-[10px]">Z1 = ${z1}</text>
+            <!-- Driven Gear Z2 -->
+            <circle cx="180" cy="90" r="${Math.min(z2*1.2, 60)}" fill="#f59e0b" fill-opacity="0.3" stroke="#f59e0b" stroke-width="2"/>
+            <text x="180" y="95" text-anchor="middle" fill="#fff" class="text-[10px]">Z2 = ${z2}</text>
+            <text x="135" y="165" text-anchor="middle" fill="#94a3b8" class="text-[10px]">Speed Ratio: ${ratio.toFixed(2)}</text>
+          </svg>
+        `;
+
+      } else if (activeModule === 'beam') {
+        const { force, length, b, h } = state.beam;
+        // M_max = (F * L) / 4 (N.mm)
+        const maxMoment = (force * length) / 4;
+        // Z = (b * h^2) / 6
+        const zMod = (b * Math.pow(h, 2)) / 6;
+        // stress = M / Z (MPa)
+        const stress = maxMoment / zMod;
+
+        outContainer.innerHTML = `
+          ${createCardHtml(currentLang==='TH'?'โมเมนต์ดัดสูงสุด (Max Moment)':'Max Moment (M)', (maxMoment/1000).toFixed(2), 'N·m', 'fa-arrows-split-up-and-left')}
+          ${createCardHtml(currentLang==='TH'?'ความเค้นดัดสูงสุด (Max Stress)':'Bending Stress (σ)', stress.toFixed(2), 'MPa', 'fa-weight-hanging')}
+        `;
+
+        svgContainer.innerHTML = `
+          <svg width="280" height="180" viewBox="0 0 280 180">
+            <!-- Beam -->
+            <rect x="40" y="90" width="200" height="16" fill="#334155" stroke="#38bdf8" stroke-width="2" rx="2"/>
+            <!-- Supports -->
+            <polygon points="40,106 30,126 50,126" fill="#64748b"/>
+            <polygon points="240,106 230,126 250,126" fill="#64748b"/>
+            <!-- Force Arrow -->
+            <line x1="140" y1="30" x2="140" y2="85" stroke="#ef4444" stroke-width="3" />
+            <polygon points="140,90 134,78 146,78" fill="#ef4444"/>
+            <text x="140" y="25" text-anchor="middle" fill="#ef4444" class="text-[10px]">F = ${force} N</text>
+            <text x="140" y="155" text-anchor="middle" fill="#38bdf8" class="text-[10px]">σ = ${stress.toFixed(2)} MPa</text>
+          </svg>
+        `;
+
+      } else if (activeModule === 'cylinder') {
+        const { p, d1, d2 } = state.cylinder;
+        const pPascal = p * 100000; // bar to Pa
+        const areaPush = (Math.PI * Math.pow(d1 / 1000, 2)) / 4;
+        const areaPull = (Math.PI * (Math.pow(d1 / 1000, 2) - Math.pow(d2 / 1000, 2))) / 4;
+
+        const forcePush = pPascal * areaPush; // N
+        const forcePull = pPascal * areaPull; // N
+
+        outContainer.innerHTML = `
+          ${createCardHtml(currentLang==='TH'?'แรงดันออก (Push Force)':'Push Force', forcePush.toFixed(0), 'N (' + (forcePush/9806.65).toFixed(2) + ' Ton)', 'fa-right-long')}
+          ${createCardHtml(currentLang==='TH'?'แรงดึงกลับ (Pull Force)':'Pull Force', forcePull.toFixed(0), 'N (' + (forcePull/9806.65).toFixed(2) + ' Ton)', 'fa-left-long')}
+        `;
+
+        svgContainer.innerHTML = `
+          <svg width="280" height="180" viewBox="0 0 280 180">
+            <!-- Cylinder Barrel -->
+            <rect x="40" y="60" width="120" height="60" fill="#1e293b" stroke="#0284c7" stroke-width="2" rx="4"/>
+            <!-- Piston Head -->
+            <rect x="100" y="62" width="15" height="56" fill="#38bdf8"/>
+            <!-- Piston Rod -->
+            <rect x="115" y="${90 - d2/4}" width="110" height="${d2/2}" fill="#94a3b8" stroke="#cbd5e1" stroke-width="1"/>
+            <text x="100" y="150" text-anchor="middle" fill="#38bdf8" class="text-[10px]">Push: ${forcePush.toFixed(0)} N</text>
+            <text x="100" y="35" text-anchor="middle" fill="#f59e0b" class="text-[10px]">Pressure: ${p} bar</text>
+          </svg>
+        `;
+      }
+    }
+
+    function createCardHtml(title, value, unit, icon) {
+      return `
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center justify-between shadow-lg">
+          <div>
+            <div class="text-xs text-slate-400 mb-1">${title}</div>
+            <div class="text-xl font-extrabold text-white font-mono">${value} <span class="text-xs font-normal text-slate-400">${unit}</span></div>
+          </div>
+          <div class="p-3 bg-brand-500/10 text-brand-400 rounded-xl">
+            <i class="fa-solid ${icon} text-xl"></i>
+          </div>
+        </div>
+      `;
+    }
+
+    // Glossary Search Filter
+    function renderGlossary() {
+      const container = document.getElementById('glossary-grid');
+      const searchVal = (document.getElementById('glossary-search')?.value || '').toLowerCase();
+
+      const filtered = glossaryData.filter(item => 
+        item.term.toLowerCase().includes(searchVal) ||
+        item.defTH.toLowerCase().includes(searchVal) ||
+        item.defEN.toLowerCase().includes(searchVal)
+      );
+
+      document.getElementById('txt-glossary-count').textContent = `${filtered.length} items`;
+
+      container.innerHTML = filtered.map(item => `
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2">
+          <div class="flex justify-between items-start">
+            <h4 class="text-sm font-bold text-brand-400">${item.term}</h4>
+            <span class="text-[10px] font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300">${item.formula}</span>
+          </div>
+          <p class="text-xs text-slate-300">${currentLang==='TH'?item.defTH:item.defEN}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterGlossary() {
+      renderGlossary();
+    }
+  </script>
+</body>
+</html>
